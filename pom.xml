@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.ontimize.boot</groupId>
+		<artifactId>ontimize-boot-parent</artifactId>
+		<version>1.1.0</version>
+	</parent>
+
+  <!-- TODO Estudiar si nos interesa q el groupId sea com.imatia.platform.TENANT
+  para evitar colisiones de artefactos -->
+  <groupId>com.newont14</groupId>
+  <artifactId>newont28</artifactId>
+  <version>0.0.1</version>
+  <packaging>pom</packaging>
+  <name>${project.groupId}:${project.artifactId}</name>
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+
+    <!-- TODO Eliminar BBDD embebida-->
+    <hsqldatabase.path>src/main/db</hsqldatabase.path>
+		<database.url>jdbc:hsqldb:hsql://localhost:9013/templateDB</database.url>
+		<hsqldb.version>2.3.4</hsqldb.version>
+
+		<spring-boot.repackage.skip>true</spring-boot.repackage.skip>
+		<frontend-maven-plugin.version>1.10.0</frontend-maven-plugin.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+			</dependency>
+
+			<dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>newont28-api</artifactId>
+        <version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>newont28-boot</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>newont28-frontend</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+			<dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>newont28-model</artifactId>
+        <version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>newont28-ws</artifactId>
+        <version>${project.version}</version>
+			</dependency>
+
+      <!-- TODO ELIMINAR esta dependencia-->
+			<dependency>
+				<groupId>org.hsqldb</groupId>
+				<artifactId>hsqldb</artifactId>
+				<version>${hsqldb.version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+				<plugins>
+					<plugin>
+						<groupId>com.github.eirslett</groupId>
+						<artifactId>frontend-maven-plugin</artifactId>
+						<version>${frontend-maven-plugin.version}</version>
+					</plugin>
+				</plugins>
+		</pluginManagement>
+	</build>
+
+	<profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>imatia-artifactory</id>
+                    <url>https://artifactory.imatia.com/public-artifactory/libs-release</url>
+                    <releases>
+                    </releases>
+                    <snapshots>
+                    </snapshots>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+  <modules>
+    <module>newont28-api</module>
+    <module>newont28-model</module>
+    <module>newont28-ws</module>
+    <module>newont28-boot</module>
+    <module>newont28-frontend</module>
+
+  </modules>
+</project>
